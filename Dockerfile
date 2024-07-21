@@ -8,6 +8,6 @@ COPY go.mod ./go.mod
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -o=/sur/local/bin/cov main.go
+RUN go build -o=/usr/local/bin/cov main.go
 
 ENTRYPOINT ["cov"]
