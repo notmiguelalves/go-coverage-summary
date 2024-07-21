@@ -14,4 +14,4 @@ jobs:
     - name: Call action
       uses: ./
       with:
-        coverage-file: "testdata/coverage.out"
+        coverage-file: "./testdata/coverage.out"
