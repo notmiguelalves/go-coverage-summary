@@ -12,6 +12,6 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Call action
-      uses: .
+      uses: ./action.yaml
       with:
         coverage-file: "testdata/coverage.out"
