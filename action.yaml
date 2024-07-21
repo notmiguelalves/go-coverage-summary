@@ -1,0 +1,11 @@
+name: 'Go Coverage Summary'
+description: 'Displays Go code coverage results in job summary'
+inputs:
+  coverage-file:
+    description: 'path to Go coverage file'
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - "-file ${{ inputs.coverage-file }}""
