@@ -34,10 +34,11 @@ jobs:
 ```
 
 Will then create a table in the job summary output containing the coverage for each package. For example:
-```
+
+
 | Package | Coverage |
 | ----- | ----- |
 | `github.com/notmiguelalves/anypipe/pkg/dockerutils` | **89.2%** |
 | `github.com/notmiguelalves/anypipe/pkg/utils` | **69.8%** |
 | `github.com/notmiguelalves/anypipe/pkg/wrapper` | **98.9%** |
-```
+
