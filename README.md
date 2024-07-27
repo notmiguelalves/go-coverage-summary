@@ -28,9 +28,10 @@ jobs:
       run: go test -cover -covermode=atomic -coverprofile=coverage.out -race ./...
 
     - name: Call action
-      uses: notmiguelalves/go-coverage-summary@v0.1.0
+      uses: notmiguelalves/go-coverage-summary@v0.5.0
       with:
         coverage-file: "coverage.out"
+        exclusions: "utils,wrapper"  # note that this is a comma separated list
 ```
 
 Will then create a table in the job summary output containing the coverage for each package. For example:
@@ -39,6 +40,5 @@ Will then create a table in the job summary output containing the coverage for e
 | Package | Coverage |
 | ----- | ----- |
 | `github.com/notmiguelalves/anypipe/pkg/dockerutils` | **89.2%** |
-| `github.com/notmiguelalves/anypipe/pkg/utils` | **69.8%** |
-| `github.com/notmiguelalves/anypipe/pkg/wrapper` | **98.9%** |
+| `github.com/notmiguelalves/anypipe/pkg/anypipe` | **69.8%** |
 
