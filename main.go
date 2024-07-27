@@ -83,6 +83,7 @@ func writeGithubStepSummary(coverage Coverage) {
 		os.Exit(1)
 	}
 
+	writeLine(f, "\n---\n## go-coverage-summary")
 	writeLine(f, "\n| Package | Coverage |\n")
 	writeLine(f, "| ----- | ----- |\n")
 	for pkg, cov := range coverage {
