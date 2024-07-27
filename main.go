@@ -129,7 +129,7 @@ func (e *Exclusions) Contains(pkg string) bool {
 	}
 
 	for _, exc := range *e {
-		if strings.EqualFold(exc, pkg) {
+		if strings.HasSuffix(exc, "/"+pkg) {
 			return true
 		}
 	}
