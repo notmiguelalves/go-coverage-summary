@@ -4,8 +4,12 @@ inputs:
   coverage-file:
     description: 'path to Go coverage file'
     required: true
+  exclusions:
+    description: 'newline separated list of packages to exclude'
+    required: false
 runs:
   using: docker
   image: Dockerfile
   args:
     - "-file=${{ inputs.coverage-file }}"
+    - "-exclude=${{ inputs.exclusions }}"

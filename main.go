@@ -19,9 +19,13 @@ type PackageCoverage struct {
 
 type Coverage map[string]*PackageCoverage
 
+type Exclusions []string
+
 func main() {
 	var coverageFile string
+	var exclusions Exclusions
 	flag.StringVar(&coverageFile, "file", "", "path to coverage file")
+	flag.Var(&exclusions, "exclude", "comma separated list of packages to exclude")
 	flag.Parse()
 
 	if strings.TrimSpace(coverageFile) == "" {
@@ -49,6 +53,9 @@ func main() {
 		}
 
 		pkg := filepath.Dir(p.FileName)
+		if exclusions.Contains(pkg) {
+			continue
+		}
 		if _, ok := coverage[pkg]; !ok {
 			coverage[pkg] = &PackageCoverage{
 				name:              pkg,
@@ -58,7 +65,6 @@ func main() {
 		}
 
 		cvg := coverage[pkg]
-
 		for _, b := range p.Blocks {
 			cvg.totalStatements += b.NumStmt
 			if b.Count > 0 {
@@ -98,4 +104,35 @@ func writeLine(f *os.File, line string) {
 		log.Printf("failed to write to step output: %s\n", err.Error())
 		os.Exit(1)
 	}
+}
+
+func (e *Exclusions) String() string {
+	if e == nil {
+		return ""
+	}
+	return strings.Join(*e, ",")
+}
+
+func (e *Exclusions) Set(value string) error {
+	vals := strings.Split(value, ",")
+
+	for _, v := range vals {
+		*e = append(*e, v)
+	}
+
+	return nil
+}
+
+func (e *Exclusions) Contains(pkg string) bool {
+	if e == nil {
+		return false
+	}
+
+	for _, exc := range *e {
+		if strings.EqualFold(exc, pkg) {
+			return true
+		}
+	}
+
+	return false
 }
